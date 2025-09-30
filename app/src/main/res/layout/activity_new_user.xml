@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewUserActivity"
+    android:background="@drawable/background">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="296dp"
+        android:layout_height="216dp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/foro"
+        tools:ignore="ImageContrastCheck" />
+
+    <EditText
+        android:id="@+id/TxtFirstName"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="48dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/FirstName"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:ignore="LabelFor,TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/TxtLastName"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="104dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/LastName"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:ignore="MissingConstraints,TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/TxtNameUser"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="160dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/User"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/TxtPassword"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="216dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/pass2"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:ignore="TextContrastCheck,TextFields" />
+
+    <EditText
+        android:id="@+id/TxtDate"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="272dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/Date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:ignore="TextContrastCheck" />
+
+    <CheckBox
+        android:id="@+id/CbConditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="328dp"
+        android:text="Acepto los terminos y condiciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.192"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <Button
+        android:id="@+id/BtnCreate"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="420dp"
+        android:text="@string/Acces"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

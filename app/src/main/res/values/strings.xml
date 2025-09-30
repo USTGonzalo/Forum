@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Foro</string>
+    <string name="User">Nombre de usuario</string>
+    <string name="pass">*******</string>
+    <string name="IMG">TODO</string>
+    <string name="Login">Iniciar sesión</string>
+    <string name="Recovery">¿Olvidaste tu contraseña?</string>
+    <string name="newAcount">¿No tienes cuenta? crear cuenta</string>
+    <string name="FName">Name</string>
+    <string name="todo">TODO</string>
+    <string name="LastName">Apellido</string>
+    <string name="FirstName">Nombre</string>
+    <string name="pass2">Contraseña</string>
+    <string name="Date">Fecha de nacimiento</string>
+    <string name="Acces">Crear cuenta</string>
+    <string name="more">+</string>
+    <string name="newpublish">Boton de agregar publicacion</string>
+    <string name="Title">Titulo</string>
+    <string name="Write">Escribe lo que deseas comentar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="send">Enviar</string>
+</resources>
