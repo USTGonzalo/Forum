@@ -1,7 +1,5 @@
 package com.example.foro;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,13 +9,11 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.foro.Db.DbHelper;
-import com.example.foro.Db.ForumContract;
+import com.example.foro.Db.ForumDatabase;
 
 public class AddPublicationActivity extends AppCompatActivity {
 
-    DbHelper dbHelper;
-    SQLiteDatabase db;
+    ForumDatabase forumDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +21,22 @@ public class AddPublicationActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_publication);
 
-        dbHelper = new DbHelper(this);
-        db = dbHelper.getWritableDatabase();
+        forumDatabase = new ForumDatabase(this);
 
         EditText title   = findViewById(R.id.TxtTitle);
         EditText message = findViewById(R.id.TxtMessage);
-        Button btnBack = findViewById(R.id.BtnCancel);
-        btnBack.setOnClickListener(v->{finish();});
-
+        Button btnBack   = findViewById(R.id.BtnCancel);
         Button btnCreate = findViewById(R.id.BtnSend);
+
+        btnBack.setOnClickListener(v -> finish());
+
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String titleText   = title.getText().toString();
                 String messageText = message.getText().toString();
 
-                ContentValues values = new ContentValues();
-                values.put(ForumContract.ForumEntry.COLUMN_TITLE, titleText);
-                values.put(ForumContract.ForumEntry.COLUMN_MESSAGE, messageText);
-
-                long newRowId = db.insert(ForumContract.ForumEntry.TABLE_NAME, null, values);
+                long newRowId = forumDatabase.insertPublication(titleText, messageText);
 
                 if (newRowId != -1) {
                     Toast.makeText(AddPublicationActivity.this, "Publicación creada correctamente", Toast.LENGTH_SHORT).show();

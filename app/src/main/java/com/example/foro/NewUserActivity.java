@@ -1,7 +1,5 @@
 package com.example.foro;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,13 +9,11 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.foro.Db.DbHelper;
-import com.example.foro.Db.UsersContract;
+import com.example.foro.Db.UsersDatabase;
 
 public class NewUserActivity extends AppCompatActivity {
 
-    DbHelper dbHelper;
-    SQLiteDatabase db;
+    UsersDatabase usersDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +21,13 @@ public class NewUserActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_new_user);
 
-        dbHelper = new DbHelper(this);
-        db = dbHelper.getWritableDatabase();
+        usersDatabase = new UsersDatabase(this);
 
         EditText firstName = findViewById(R.id.TxtFirstName);
-        EditText lastName = findViewById(R.id.TxtLastName);
-        EditText nick = findViewById(R.id.TxtNameUser);
-        EditText password = findViewById(R.id.TxtPassword);
-        EditText birth = findViewById(R.id.TxtDate);
+        EditText lastName  = findViewById(R.id.TxtLastName);
+        EditText nick      = findViewById(R.id.TxtNameUser);
+        EditText password  = findViewById(R.id.TxtPassword);
+        EditText birth     = findViewById(R.id.TxtDate);
 
         Button enviarDatos = findViewById(R.id.BtnCreate);
         enviarDatos.setOnClickListener(new View.OnClickListener() {
@@ -44,17 +39,15 @@ public class NewUserActivity extends AppCompatActivity {
                 String pass   = password.getText().toString();
                 String date   = birth.getText().toString();
 
-                ContentValues values = new ContentValues();
-                values.put(UsersContract.UsersEntry.COLUMN_NAME, name);
-                values.put(UsersContract.UsersEntry.COLUMN_LAST, second);
-                values.put(UsersContract.UsersEntry.COLUMN_USER, user);
-                values.put(UsersContract.UsersEntry.COLUMN_PASS, pass);
-                values.put(UsersContract.UsersEntry.COLUMN_DATE, date);
-
-                long newRowId = db.insert(UsersContract.UsersEntry.TABLE_NAME, null, values);
+                long newRowId = usersDatabase.insertUser(name, second, user, pass, date);
 
                 if (newRowId != -1) {
                     Toast.makeText(NewUserActivity.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                    firstName.setText("");
+                    lastName.setText("");
+                    nick.setText("");
+                    password.setText("");
+                    birth.setText("");
                 } else {
                     Toast.makeText(NewUserActivity.this, "No se ha logrado registrar el usuario", Toast.LENGTH_SHORT).show();
                 }
