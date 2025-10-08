@@ -26,6 +26,29 @@ public class UsersDatabase {
         return db.insert(UsersContract.UsersEntry.TABLE_NAME, null, values);
     }
 
+    // Verificar usuario y contraseña
+    public boolean checkUserCredentials(String username, String password) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] columns = { UsersContract.UsersEntry.COLUMN_ID };
+        String selection = UsersContract.UsersEntry.COLUMN_USER + "=? AND " + UsersContract.UsersEntry.COLUMN_PASS + "=?";
+        String[] selectionArgs = { username, password };
+
+        Cursor cursor = db.query(
+                UsersContract.UsersEntry.TABLE_NAME,
+                columns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+        return exists;
+    }
+
+
     // Eliminar usuario
     public int deleteUser(long id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();

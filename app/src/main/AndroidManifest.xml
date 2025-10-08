@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foro">
         <activity
+            android:name=".UpdateDeleteActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddPublicationActivity"
             android:exported="false" />
         <activity
