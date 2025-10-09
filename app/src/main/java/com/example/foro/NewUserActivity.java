@@ -30,6 +30,7 @@ public class NewUserActivity extends AppCompatActivity {
         EditText birth     = findViewById(R.id.TxtDate);
 
         Button enviarDatos = findViewById(R.id.BtnCreate);
+        //Botón para ingresar datos nuevos (usuarios)
         enviarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +43,8 @@ public class NewUserActivity extends AppCompatActivity {
                 long newRowId = usersDatabase.insertUser(name, second, user, pass, date);
 
                 if (newRowId != -1) {
+
+                    //Si la condición se cumple, avisar y eliminar todo el texto.
                     Toast.makeText(NewUserActivity.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
                     firstName.setText("");
                     lastName.setText("");

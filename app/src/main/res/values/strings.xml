@@ -19,4 +19,6 @@
     <string name="Write">Escribe lo que deseas comentar</string>
     <string name="cancel">Cancelar</string>
     <string name="send">Enviar</string>
+    <string name="delete">Eliminar</string>
+    <string name="update">Actualizar</string>
 </resources>

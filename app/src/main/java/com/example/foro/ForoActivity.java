@@ -14,7 +14,7 @@ public class ForoActivity extends AppCompatActivity {
     private ListView listViewForo;
     private ImageButton btnNewPublish;
     private ForumDatabase forumDatabase;
-    private List<String> publicaciones; // Guardamos la lista actual
+    private List<String> publicaciones;
     private ArrayAdapter<String> adapter;
 
     @Override
@@ -30,19 +30,19 @@ public class ForoActivity extends AppCompatActivity {
         // Cargar publicaciones
         loadPublications();
 
-        // 🟢 Crear nueva publicación
+        // Ir al activity para crear nueva publicación
         btnNewPublish.setOnClickListener(v -> {
             Intent intent = new Intent(ForoActivity.this, AddPublicationActivity.class);
             startActivity(intent);
         });
 
-        // 🟡 Abrir Update/Delete al hacer clic en una publicación
+        // Abrir Update/Delete al hacer clic en una publicación
         listViewForo.setOnItemClickListener((parent, view, position, id) -> {
             String item = publicaciones.get(position);
 
             // Formato actual: "ID: 1\nTítulo\nMensaje"
             String[] parts = item.split("\n", 3);
-            if (parts.length < 3) return; // seguridad
+            if (parts.length < 3) return;
 
             String idStr = parts[0].replace("ID:", "").trim();
             String title = parts[1];
@@ -56,7 +56,7 @@ public class ForoActivity extends AppCompatActivity {
         });
     }
 
-    // 🟢 Cargar publicaciones desde la base de datos
+    // Cargar publicaciones
     private void loadPublications() {
         publicaciones = forumDatabase.getAllPublications();
 
@@ -69,7 +69,7 @@ public class ForoActivity extends AppCompatActivity {
         listViewForo.setAdapter(adapter);
     }
 
-    // 🟠 Cada vez que se vuelve a esta pantalla, recargar lista (por ejemplo, tras editar o eliminar)
+    // Cada vez que se vuelve a esta pantalla, recargar lista (por ejemplo, tras editar o eliminar)
     @Override
     protected void onResume() {
         super.onResume();

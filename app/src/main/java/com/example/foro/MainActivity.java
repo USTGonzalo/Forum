@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, ForoActivity.class);
                 startActivity(intent);
             } else {
-                // Mostrar error
                 Toast.makeText(MainActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
             }
         });

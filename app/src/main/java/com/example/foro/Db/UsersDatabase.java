@@ -47,15 +47,4 @@ public class UsersDatabase {
         cursor.close();
         return exists;
     }
-
-
-    // Eliminar usuario
-    public int deleteUser(long id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        return db.delete(
-                UsersContract.UsersEntry.TABLE_NAME,
-                UsersContract.UsersEntry.COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}
-        );
-    }
 }

@@ -29,7 +29,7 @@ public class UpdateDeleteActivity extends AppCompatActivity {
 
         forumDatabase = new ForumDatabase(this);
 
-        // 🟡 Obtener los datos enviados desde el intent
+        // Obtener los datos enviados desde el intent
         Intent intent = getIntent();
         if (intent != null) {
             id = Long.parseLong(intent.getStringExtra("id"));
@@ -37,7 +37,7 @@ public class UpdateDeleteActivity extends AppCompatActivity {
             txtNewMessage.setText(intent.getStringExtra("message"));
         }
 
-        // 🔵 Botón de actualizar
+        // Botón de actualizar
         btnSave.setOnClickListener(v -> {
             String newTitle = txtRename.getText().toString();
             String newMessage = txtNewMessage.getText().toString();
@@ -50,7 +50,7 @@ public class UpdateDeleteActivity extends AppCompatActivity {
             }
         });
 
-        // 🔴 Botón de eliminar
+        // Botón de eliminar
         btnDelete.setOnClickListener(v -> {
             if (forumDatabase.deletePublication(id) > 0) {
                 Toast.makeText(this, "Publicación eliminada", Toast.LENGTH_SHORT).show();
