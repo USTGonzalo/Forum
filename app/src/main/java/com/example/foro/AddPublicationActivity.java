@@ -50,29 +50,19 @@ public class AddPublicationActivity extends AppCompatActivity {
                 return;
             }
 
-            // Mostrar diálogo de confirmación
-            new AlertDialog.Builder(AddPublicationActivity.this)
-                    .setTitle("Confirmar publicación")
-                    .setMessage("¿Deseas publicar este mensaje?")
-                    .setPositiveButton("Sí", (dialog, which) -> {
-                        // Insertar publicación con usuario
-                        long newRowId = forumDatabase.insertPublication(titleText, messageText, currentUserId);
+            long newRowId = forumDatabase.insertPublication(titleText, messageText, currentUserId);
 
-                        if (newRowId != -1) {
-                            Toast.makeText(AddPublicationActivity.this,
-                                    "Publicación creada correctamente. ID: " + newRowId,
-                                    Toast.LENGTH_SHORT).show();
-                            title.setText("");
-                            message.setText("");
-                            finish(); // opcional: cerrar la actividad después de publicar
-                        } else {
-                            Toast.makeText(AddPublicationActivity.this,
-                                    "Error al crear la publicación",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
-                    .show();
+            if (newRowId != -1) {
+                Toast.makeText(AddPublicationActivity.this,
+                        "Publicación creada correctamente. ID: " + newRowId, Toast.LENGTH_SHORT).show();
+                title.setText("");
+                message.setText("");
+                finish();
+            } else {
+                Toast.makeText(AddPublicationActivity.this,
+                        "Error al crear la publicación",
+                        Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foro.Db.ForumDatabase;
@@ -70,13 +71,21 @@ public class UpdateDeleteActivity extends AppCompatActivity {
 
         // Botón de eliminar
         btnDelete.setOnClickListener(v -> {
-            int rowsDeleted = forumDatabase.deletePublication(id);
-            if (rowsDeleted > 0) {
-                Toast.makeText(this, "Publicación eliminada", Toast.LENGTH_SHORT).show();
-                finish();
-            } else {
-                Toast.makeText(this, "Error al eliminar", Toast.LENGTH_SHORT).show();
-            }
+            // Mostrar diálogo de confirmación
+            new AlertDialog.Builder(UpdateDeleteActivity.this)
+                    .setTitle("Confirmar eliminación")
+                    .setMessage("¿Desea eliminar esta publicación?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        int rowsDeleted = forumDatabase.deletePublication(id);
+                        if (rowsDeleted > 0) {
+                            Toast.makeText(this, "Publicación eliminada", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(this, "Error al eliminar", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
+                    .show();
         });
     }
 }
