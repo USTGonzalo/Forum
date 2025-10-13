@@ -21,4 +21,8 @@
     <string name="send">Enviar</string>
     <string name="delete">Eliminar</string>
     <string name="update">Actualizar</string>
+    <string name="volver">volver</string>
+    <string name="title">Título de la publicación</string>
+    <string name="content">Contenido de la publicación...</string>
+    <string name="min">hace 5 min</string>
 </resources>

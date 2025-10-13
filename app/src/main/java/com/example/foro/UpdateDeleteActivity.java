@@ -12,16 +12,19 @@ import com.example.foro.Db.ForumDatabase;
 
 public class UpdateDeleteActivity extends AppCompatActivity {
 
-    EditText txtRename, txtNewMessage;
-    Button btnSave, btnDelete;
-    ForumDatabase forumDatabase;
-    long id;
+    private EditText txtRename, txtNewMessage;
+    private Button btnSave, btnDelete;
+    private ForumDatabase forumDatabase;
+    private long id;
+    private int userId;
+    private String time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_delete);
 
+        // Inicializar vistas
         txtRename = findViewById(R.id.TxtRename);
         txtNewMessage = findViewById(R.id.TxtNewMessage);
         btnSave = findViewById(R.id.btnSave);
@@ -29,20 +32,35 @@ public class UpdateDeleteActivity extends AppCompatActivity {
 
         forumDatabase = new ForumDatabase(this);
 
-        // Obtener los datos enviados desde el intent
+        // Obtener datos del Intent
         Intent intent = getIntent();
         if (intent != null) {
-            id = Long.parseLong(intent.getStringExtra("id"));
+            id = intent.getLongExtra("id", -1);
+            userId = intent.getIntExtra("userId", -1);
+            time = intent.getStringExtra("time");
+
+            if (id == -1) {
+                Toast.makeText(this, "Error: ID no válido", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
             txtRename.setText(intent.getStringExtra("title"));
             txtNewMessage.setText(intent.getStringExtra("message"));
         }
 
         // Botón de actualizar
         btnSave.setOnClickListener(v -> {
-            String newTitle = txtRename.getText().toString();
-            String newMessage = txtNewMessage.getText().toString();
+            String newTitle = txtRename.getText().toString().trim();
+            String newMessage = txtNewMessage.getText().toString().trim();
 
-            if (forumDatabase.updatePublication(id, newTitle, newMessage) > 0) {
+            if (newTitle.isEmpty() || newMessage.isEmpty()) {
+                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int rowsUpdated = forumDatabase.updatePublication(id, newTitle, newMessage);
+            if (rowsUpdated > 0) {
                 Toast.makeText(this, "Publicación actualizada", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
@@ -52,7 +70,8 @@ public class UpdateDeleteActivity extends AppCompatActivity {
 
         // Botón de eliminar
         btnDelete.setOnClickListener(v -> {
-            if (forumDatabase.deletePublication(id) > 0) {
+            int rowsDeleted = forumDatabase.deletePublication(id);
+            if (rowsDeleted > 0) {
                 Toast.makeText(this, "Publicación eliminada", Toast.LENGTH_SHORT).show();
                 finish();
             } else {

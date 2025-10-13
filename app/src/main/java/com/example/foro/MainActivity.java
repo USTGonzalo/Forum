@@ -35,9 +35,15 @@ public class MainActivity extends AppCompatActivity {
             String username = usernameField.getText().toString();
             String password = passwordField.getText().toString();
 
-            boolean isValid = db.checkUserCredentials(username, password);
+            int userId = db.getUserId(username, password); // devuelve -1 si no existe
 
-            if (isValid) {
+            if (userId != -1) {
+                // Guardar userId en SharedPreferences
+                getSharedPreferences("session", MODE_PRIVATE)
+                        .edit()
+                        .putInt("userId", userId)
+                        .apply();
+
                 Intent intent = new Intent(MainActivity.this, ForoActivity.class);
                 startActivity(intent);
             } else {

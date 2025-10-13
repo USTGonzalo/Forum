@@ -26,7 +26,7 @@ public class UsersDatabase {
         return db.insert(UsersContract.UsersEntry.TABLE_NAME, null, values);
     }
 
-    // Verificar usuario y contraseña
+    // Verificar usuario y contraseña (sólo devuelve true/false)
     public boolean checkUserCredentials(String username, String password) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] columns = { UsersContract.UsersEntry.COLUMN_ID };
@@ -46,5 +46,31 @@ public class UsersDatabase {
         boolean exists = cursor.getCount() > 0;
         cursor.close();
         return exists;
+    }
+
+    // NUEVO: Obtener el ID del usuario por username y password
+    public int getUserId(String username, String password) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] columns = { UsersContract.UsersEntry.COLUMN_ID };
+        String selection = UsersContract.UsersEntry.COLUMN_USER + "=? AND " + UsersContract.UsersEntry.COLUMN_PASS + "=?";
+        String[] selectionArgs = { username, password };
+
+        Cursor cursor = db.query(
+                UsersContract.UsersEntry.TABLE_NAME,
+                columns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        int userId = -1;
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(cursor.getColumnIndexOrThrow(UsersContract.UsersEntry.COLUMN_ID));
+        }
+
+        cursor.close();
+        return userId;
     }
 }

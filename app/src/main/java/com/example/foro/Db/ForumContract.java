@@ -13,5 +13,7 @@ public class ForumContract {
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_MESSAGE = "message";
+        public static final String COLUMN_USER = "user";
+        public static final String COLUMN_TIME = "time";
     }
 }

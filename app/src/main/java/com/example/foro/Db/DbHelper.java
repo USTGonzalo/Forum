@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "forum.db";
 
     private static final String SQL_CREATE_ENTRIES_USERS =
@@ -22,8 +22,13 @@ public class DbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + ForumContract.ForumEntry.TABLE_NAME + " (" +
                     ForumContract.ForumEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     ForumContract.ForumEntry.COLUMN_TITLE + " VARCHAR(64) NOT NULL," +
-                    ForumContract.ForumEntry.COLUMN_MESSAGE + " TEXT NOT NULL" +
+                    ForumContract.ForumEntry.COLUMN_MESSAGE + " TEXT NOT NULL," +
+                    ForumContract.ForumEntry.COLUMN_USER + " INTEGER NOT NULL," +
+                    ForumContract.ForumEntry.COLUMN_TIME + " DATETIME DEFAULT (datetime('now','localtime'))," +
+                    "FOREIGN KEY(" + ForumContract.ForumEntry.COLUMN_USER + ") REFERENCES " +
+                    UsersContract.UsersEntry.TABLE_NAME + "(" + UsersContract.UsersEntry.COLUMN_ID + ")" +
                     ");";
+
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

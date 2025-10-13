@@ -16,13 +16,14 @@ public class ForumDatabase {
         dbHelper = new DbHelper(context);
     }
 
-    // Crear nueva publicación
-    public long insertPublication(String title, String message) {
+    // Crear nueva publicación con usuario
+    public long insertPublication(String title, String message, int userId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ForumContract.ForumEntry.COLUMN_TITLE, title);
         values.put(ForumContract.ForumEntry.COLUMN_MESSAGE, message);
-
+        values.put(ForumContract.ForumEntry.COLUMN_USER, userId);
+        // La columna time se asigna automáticamente con datetime('now','localtime')
         return db.insert(ForumContract.ForumEntry.TABLE_NAME, null, values);
     }
 
@@ -36,24 +37,33 @@ public class ForumDatabase {
         );
     }
 
-    // Obtener todas las publicaciones
-    public List<String> getAllPublications() {
+    // Obtener todas las publicaciones como lista de objetos Publication
+    public List<Publication> getAllPublications() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        List<String> publications = new ArrayList<>();
+        List<Publication> publications = new ArrayList<>();
 
         Cursor cursor = db.query(
                 ForumContract.ForumEntry.TABLE_NAME,
-                new String[]{ForumContract.ForumEntry.COLUMN_ID,ForumContract.ForumEntry.COLUMN_TITLE, ForumContract.ForumEntry.COLUMN_MESSAGE},
-                null, null, null, null, ForumContract.ForumEntry.COLUMN_ID + " DESC"
+                new String[]{
+                        ForumContract.ForumEntry.COLUMN_ID,
+                        ForumContract.ForumEntry.COLUMN_TITLE,
+                        ForumContract.ForumEntry.COLUMN_MESSAGE,
+                        ForumContract.ForumEntry.COLUMN_USER,
+                        ForumContract.ForumEntry.COLUMN_TIME
+                },
+                null, null, null, null,
+                ForumContract.ForumEntry.COLUMN_ID + " DESC"
         );
 
         if (cursor.moveToFirst()) {
             do {
-                String id = cursor.getString(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_ID));
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_ID));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_TITLE));
                 String message = cursor.getString(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_MESSAGE));
+                int userId = cursor.getInt(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_USER));
+                String time = cursor.getString(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_TIME));
 
-                publications.add("ID: " + id + "\n" + title + "\n" + message);
+                publications.add(new Publication(id, title, message, userId, time));
             } while (cursor.moveToNext());
         }
 
@@ -68,7 +78,7 @@ public class ForumDatabase {
         ContentValues values = new ContentValues();
         values.put(ForumContract.ForumEntry.COLUMN_TITLE, newTitle);
         values.put(ForumContract.ForumEntry.COLUMN_MESSAGE, newMessage);
-
+        // No actualizamos usuario ni hora aquí
         return db.update(
                 ForumContract.ForumEntry.TABLE_NAME,
                 values,
@@ -76,5 +86,4 @@ public class ForumDatabase {
                 new String[]{String.valueOf(id)}
         );
     }
-
 }

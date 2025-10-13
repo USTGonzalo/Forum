@@ -2,11 +2,11 @@ package com.example.foro;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.foro.Db.ForumDatabase;
+import com.example.foro.Db.Publication;
 import java.util.List;
 
 public class ForoActivity extends AppCompatActivity {
@@ -14,8 +14,8 @@ public class ForoActivity extends AppCompatActivity {
     private ListView listViewForo;
     private ImageButton btnNewPublish;
     private ForumDatabase forumDatabase;
-    private List<String> publicaciones;
-    private ArrayAdapter<String> adapter;
+    private List<Publication> publicaciones;
+    private PublicationAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,34 +38,23 @@ public class ForoActivity extends AppCompatActivity {
 
         // Abrir Update/Delete al hacer clic en una publicación
         listViewForo.setOnItemClickListener((parent, view, position, id) -> {
-            String item = publicaciones.get(position);
-
-            // Formato actual: "ID: 1\nTítulo\nMensaje"
-            String[] parts = item.split("\n", 3);
-            if (parts.length < 3) return;
-
-            String idStr = parts[0].replace("ID:", "").trim();
-            String title = parts[1];
-            String message = parts[2];
+            Publication pub = publicaciones.get(position);
 
             Intent intent = new Intent(ForoActivity.this, UpdateDeleteActivity.class);
-            intent.putExtra("id", idStr);
-            intent.putExtra("title", title);
-            intent.putExtra("message", message);
+            intent.putExtra("id", pub.getId());
+            intent.putExtra("title", pub.getTitle());
+            intent.putExtra("message", pub.getMessage());
+            intent.putExtra("userId", pub.getUserId());
+            intent.putExtra("time", pub.getTime());
             startActivity(intent);
         });
     }
 
-    // Cargar publicaciones
+    // Cargar publicaciones y actualizar adaptador
     private void loadPublications() {
-        publicaciones = forumDatabase.getAllPublications();
+        publicaciones = forumDatabase.getAllPublications(); // devuelve List<Publication>
 
-        adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                publicaciones
-        );
-
+        adapter = new PublicationAdapter(this, publicaciones);
         listViewForo.setAdapter(adapter);
     }
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/bg_gradient">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -30,6 +30,8 @@
         android:hint="@string/User"
         android:inputType="text"
         android:text=""
+        android:textColor="@color/white"
+        android:textColorHint="#857D7D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +47,8 @@
         android:ems="10"
         android:hint="@string/pass"
         android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="#857D7D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
