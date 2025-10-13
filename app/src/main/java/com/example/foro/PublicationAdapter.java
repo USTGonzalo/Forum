@@ -50,8 +50,9 @@ public class PublicationAdapter extends BaseAdapter {
 
         txtTitle.setText(pub.getTitle());
         txtMessage.setText(pub.getMessage());
-        txtDate.setText("Usuario ID: " + pub.getUserId() + " | " + pub.getTime());
+        txtDate.setText("Publicado por: " + pub.getUserName() + " | " + pub.getTime());
 
         return convertView;
     }
+
 }

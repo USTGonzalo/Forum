@@ -42,18 +42,18 @@ public class ForumDatabase {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<Publication> publications = new ArrayList<>();
 
-        Cursor cursor = db.query(
-                ForumContract.ForumEntry.TABLE_NAME,
-                new String[]{
-                        ForumContract.ForumEntry.COLUMN_ID,
-                        ForumContract.ForumEntry.COLUMN_TITLE,
-                        ForumContract.ForumEntry.COLUMN_MESSAGE,
-                        ForumContract.ForumEntry.COLUMN_USER,
-                        ForumContract.ForumEntry.COLUMN_TIME
-                },
-                null, null, null, null,
-                ForumContract.ForumEntry.COLUMN_ID + " DESC"
-        );
+        String query = "SELECT f." + ForumContract.ForumEntry.COLUMN_ID + ", " +
+                "f." + ForumContract.ForumEntry.COLUMN_TITLE + ", " +
+                "f." + ForumContract.ForumEntry.COLUMN_MESSAGE + ", " +
+                "f." + ForumContract.ForumEntry.COLUMN_USER + ", " +
+                "f." + ForumContract.ForumEntry.COLUMN_TIME + ", " +
+                "u." + UsersContract.UsersEntry.COLUMN_NAME + " AS username " +
+                "FROM " + ForumContract.ForumEntry.TABLE_NAME + " f " +
+                "JOIN " + UsersContract.UsersEntry.TABLE_NAME + " u " +
+                "ON f." + ForumContract.ForumEntry.COLUMN_USER + " = u." + UsersContract.UsersEntry.COLUMN_ID + " " +
+                "ORDER BY f." + ForumContract.ForumEntry.COLUMN_ID + " DESC";
+
+        Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -62,8 +62,9 @@ public class ForumDatabase {
                 String message = cursor.getString(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_MESSAGE));
                 int userId = cursor.getInt(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_USER));
                 String time = cursor.getString(cursor.getColumnIndexOrThrow(ForumContract.ForumEntry.COLUMN_TIME));
+                String userName = cursor.getString(cursor.getColumnIndexOrThrow("username"));
 
-                publications.add(new Publication(id, title, message, userId, time));
+                publications.add(new Publication(id, title, message, userId, time, userName));
             } while (cursor.moveToNext());
         }
 
