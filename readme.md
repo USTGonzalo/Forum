@@ -40,6 +40,3 @@ El proyecto fue creado con un enfoque **educativo y modular**, ideal para practi
 - ⚡ Compatible con versiones modernas de Android (API 24+).  
 
 ---
-
-## 📁 Estructura del proyecto  
-
