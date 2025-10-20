@@ -1,25 +1,43 @@
 # 🗨️ Forum  
 
 ¡Bienvenid@ al repositorio de **Forum**!  
-Una aplicación de foro comunitario desarrollada en **Java**, pensada para conectar personas, ideas y debates con fluidez.
+Una aplicación de foro comunitario desarrollada en **Java** y **Android Studio**, pensada para conectar personas, ideas y debates con fluidez.
 
 ---
 
 ## 📌 ¿Qué es Forum?  
-**Forum** es una plataforma ligera de discusión donde los usuarios pueden crear temas, responder, comentar y construir comunidad en torno a intereses comunes.  
-Está desarrollada 100 % en **Java**, con un enfoque modular, simple y escalable.  
+**Forum** es una aplicación tipo foro desarrollada para Android, donde los usuarios pueden crear temas, responder y participar en discusiones dentro de una interfaz moderna y funcional.  
+El proyecto fue creado con un enfoque **educativo y modular**, ideal para practicar desarrollo Android nativo en **Java**.
 
 🔗 [Repositorio en GitHub](https://github.com/USTGonzalo/Forum)
 
 ---
 
+## 🧰 Información técnica  
+
+| Componente | Versión / Detalle |
+|-------------|------------------|
+| ☕ **Lenguaje principal** | Java 17 |
+| 📱 **Android Studio** | Ladybug | 2024.2.1 Patch 2 |
+| 🧩 **Gradle** | 8.7 |
+| ⚙️ **Plugin Android Gradle (AGP)** | 8.4.1 |
+| 📱 **SDK mínimo (minSdk)** | 24 |
+| 📱 **SDK objetivo (targetSdk)** | 34 |
+| 🧱 **Build Tool** | Gradle (Kotlin DSL `build.gradle.kts`) |
+| 💾 **Base de datos** | SQLite integrada |
+| 🎨 **Diseño UI** | XML nativo + estilos personalizados |
+| 🧠 **Arquitectura** | MVC (Model-View-Controller) simplificada |
+
+---
+
 ## 🛠️ Características principales  
-- ✅ Registro e inicio de sesión de usuarios.  
-- 💬 Creación de hilos de discusión (temas).  
-- 🧵 Respuestas y comentarios anidados.  
-- 👤 Gestión de usuarios (roles, permisos, etc.).  
-- 🧱 Estructura modular y fácilmente ampliable.  
-- 📊 Diagramas de base de datos, flujo y diseño UI incluidos.  
+- ✅ Inicio de sesión y registro de usuarios.  
+- 💬 Creación y visualización de publicaciones.  
+- 🧵 Respuestas y comentarios asociados a cada hilo.  
+- 📂 Base de datos local con persistencia SQLite.  
+- 🧱 Estructura modular y escalable.  
+- 📊 Incluye diagramas de flujo, base de datos y diseño UI.  
+- ⚡ Compatible con versiones modernas de Android (API 24+).  
 
 ---
 
