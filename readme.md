@@ -33,7 +33,6 @@ El proyecto fue creado con un enfoque **educativo y modular**, ideal para practi
 ## 🛠️ Características principales  
 - ✅ Inicio de sesión y registro de usuarios.  
 - 💬 Creación y visualización de publicaciones.  
-- 🧵 Respuestas y comentarios asociados a cada hilo.  
 - 📂 Base de datos local con persistencia SQLite.  
 - 🧱 Estructura modular y escalable.  
 - 📊 Incluye diagramas de flujo, base de datos y diseño UI.  
